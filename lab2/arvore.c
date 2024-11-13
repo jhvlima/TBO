@@ -60,11 +60,10 @@ void imprimeArv(tArv *a)
     if (a)
     {
         printf("<");
-        imprimeArv(a->dir);
         imprimeArv(a->esq);
-        printf("|%d|", a->chave);        
         printf(">");
-
+        imprimeArv(a->dir);
+        printf("|%d|", a->chave);
     }
 }
 
@@ -75,15 +74,8 @@ int alturaArv(tArv *a)
         return -1;
     }
 
-    if (a->dir)
-    {
-        alturaArv(a->dir) + 1;
-    }
-        
-    if (a->esq)
-    {
-       alturaArv(a->esq) + 1;
-    }
+    int alturaEsq = alturaArv(a->esq) + 1;
+    int alturaDir = alturaArv(a->dir) + 1;
 
-    return 
+    return (alturaDir > alturaEsq) ? alturaDir : alturaEsq;
 }

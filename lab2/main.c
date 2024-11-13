@@ -14,12 +14,12 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < N; i++)
     {
-        int chave = rand()%10;
+        int chave = rand();
         arv = insere(arv, chave);
     }
 
-    imprimeArv(arv);
-    printf("Alt: %d", alturaArv(arv));
+    //imprimeArv(arv);
+    printf("%d\n", alturaArv(arv));
     destroi(arv);
 
     return 0;

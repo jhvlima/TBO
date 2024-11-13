@@ -1,0 +1,27 @@
+Os eliminados foram:
+O lider esccolhido foi: 63
+0.00user 0.00system 0:00.00elapsed 81%CPU (0avgtext+0avgdata 1596maxresident)k
+0inputs+8outputs (0major+78minor)pagefaults 0swaps
+Os eliminados foram:
+O lider esccolhido foi: 9143
+0.00user 0.00system 0:00.00elapsed 100%CPU (0avgtext+0avgdata 1872maxresident)k
+0inputs+0outputs (0major+148minor)pagefaults 0swaps
+Os eliminados foram:
+O lider esccolhido foi: 77328
+0.00user 0.00system 0:00.01elapsed 100%CPU (0avgtext+0avgdata 4776maxresident)k
+0inputs+0outputs (0major+852minor)pagefaults 0swaps
+Os eliminados foram:
+O lider esccolhido foi: 630538
+0.23user 0.00system 0:00.23elapsed 99%CPU (0avgtext+0avgdata 32844maxresident)k
+0inputs+0outputs (0major+7884minor)pagefaults 0swaps
+Os eliminados foram:
+O lider esccolhido foi: 4856384
+2.35user 0.14system 0:02.49elapsed 99%CPU (0avgtext+0avgdata 314056maxresident)k
+0inputs+0outputs (0major+78194minor)pagefaults 0swaps
+Os eliminados foram:
+O lider esccolhido foi: 33850209
+24.15user 2.05system 0:26.21elapsed 99%CPU (0avgtext+0avgdata 3126656maxresident)k
+0inputs+0outputs (0major+781322minor)pagefaults 0swaps
+Command terminated by signal 9
+11.04user 17.99system 1:22.61elapsed 35%CPU (0avgtext+0avgdata 7597088maxresident)k
+13072inputs+0outputs (89major+2336022minor)pagefaults 0swaps

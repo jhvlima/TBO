@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "array.h"
+#include "arrayInt.h"
+#include "arrayChar.h"
+#include "arrayBit.h"
 
 int main(int argc, char *argv[])
 {
-    printf("COMECOU\n");
-    int i = 2, num = atoi(argv[1]);
+    int num = atoi(argv[1]);
     int *lista = InitLista(num);
-    
-    while (i =! 0)
+    int i = 0;
+    while (-1 != i)
     {    
-        //printf("NO LOOP %d\n", i);
         MarcaMultiplos(lista, i, num);
-        i = ProximoNaoMarcado(lista, num);
+        i = ProximoNaoMarcado(lista, i, num);
     }
     ImprimePrimos(lista, num);
+    free(lista);
     return 0;
 }
