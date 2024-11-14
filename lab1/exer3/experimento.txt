@@ -1,0 +1,6 @@
+Digite a expressao: Resultado da opercao 9.00 + 8.00  : 17.00
+Resultado da opercao 4.00 * 6.00  : 24.00
+Resultado da opercao 17.00 * 24.00  : 408.00
+Resultado da opercao 408.00 + 7.00  : 415.00
+Resultado da opercao 5.00 * 415.00  : 2075.00
+Resultado: 2075.00

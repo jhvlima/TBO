@@ -19,7 +19,7 @@ tPilha *iniciaPilha()
     return calloc(1, sizeof(tPilha));
 }
 
-void insereOperando(tPilha *p, char op)
+void insereOperando(tPilha *p, double  op)
 {
     tNode *novo = malloc(sizeof(tNode));
     novo->dado = malloc(sizeof(double));

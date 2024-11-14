@@ -1,30 +1,31 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "arrayChar.h"
+#include "primos.h"
 
-char *InitLista(int N)
+char *array;
+
+void InitArray(int N)
 {        
-    int *lista = calloc(sizeof(char), N);
-    return lista;
+    array = calloc(sizeof(char), N);
 }
 
-void MarcaMultiplos(char *l, int divisor, int N)
+void MarcaMultiplos(int divisor, int N)
 {
-    for (int i = divisor+1; i <= N; i++)
+    for (int i = divisor + 1; i <= N; i++)
     {
-        //printf("%d %d\n", l[i], l[divisor]);
+        //printf("%d %d\n", i, divisor);
         if (i % divisor == 0)
         {
-            l[i] = 1;
+            array[i] = 1;
         }  
     }
 }
 
-int ProximoNaoMarcado(char *l, int ultimo, int N)
+int ProximoNaoMarcado(int ultimo, int N)
 {
     for (int i = ultimo+1; i < N; i++)
     {
-        if (l[i] != 0)
+        if (array[i] == 0)
         {
             return i;
         }  
@@ -32,13 +33,18 @@ int ProximoNaoMarcado(char *l, int ultimo, int N)
     return -1;
 }
 
-void ImprimePrimos(char *l, int N)
+void ImprimePrimos(int N)
 {
-    for (int i = 0; i < N; i++)
+    for (int i = 2; i < N; i++)
     {
-        if (l[i] != -1)
+        if (array[i] == 0)
         {
             printf("%d ", i);
         }  
     }
+}
+
+void destroiArray()
+{
+    free(array);
 }

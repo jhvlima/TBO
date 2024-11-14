@@ -1,44 +1,47 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "arrayBit.h"
+#include "primos.h"
 
-char *InitLista(int N)
-{        
-    int *lista = calloc(sizeof(char), N);
-    return lista;
+char *array;
+
+void InitArray(int N)
+{
+    array = calloc((N + 7) / 8, sizeof(unsigned char));
 }
 
-void MarcaMultiplos(char *l, int divisor, int N)
+void MarcaMultiplos(int divisor, int N)
 {
-    for (int i = divisor+1; i <= N; i++)
+    // Se o número `i` não está marcado
+    for (int i = divisor + 1; i <= N; i++)
     {
-        //printf("%d %d\n", l[i], l[divisor]);
-        if (i % divisor == 0)
-        {
-            l[i] = 1;
-        }  
+        array[i / 8] |= (1 << (i % 8));
     }
 }
 
-int ProximoNaoMarcado(char *l, int ultimo, int N)
+int ProximoNaoMarcado(int ultimo, int N)
 {
-    for (int i = ultimo+1; i < N; i++)
+    for (int i = ultimo + 1; i < N; i++)
     {
-        if (l[i] != 0)
+        if (array[i] == 0)
         {
             return i;
-        }  
+        }
     }
     return -1;
 }
 
-void ImprimePrimos(char *l, int N)
+void ImprimePrimos(int N)
 {
     for (int i = 0; i < N; i++)
     {
-        if (l[i] != -1)
+        if (array[i] == 0)
         {
             printf("%d ", i);
-        }  
+        }
     }
+}
+
+void destroiArray()
+{
+    free(array);
 }

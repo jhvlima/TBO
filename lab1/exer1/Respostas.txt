@@ -1,3 +1,7 @@
+1) primos.h
+
+2) main.c, primos.c e arrayInt.c
+
 3) Um array ou uma lista seriam adequados pois é preciso percorrer a lista de números varias vezes para marcar os multiplose
 é importante guardar a posição (índice) do ultimo numero marcado
 

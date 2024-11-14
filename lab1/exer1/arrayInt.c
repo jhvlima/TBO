@@ -1,34 +1,35 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "arrayInt.h"
+#include "primos.h"
 
-int *InitLista(int N)
+int *array;
+
+void InitArray(int N)
 {        
-    int *lista = malloc(sizeof(int)*N);
+    array = malloc(sizeof(int)*N);
     for (int i = 2; i <= N; i++)
     {
-        lista[i-2] = i;
+        array[i-2] = i;
     }
-    return lista;
 }
 
-void MarcaMultiplos(int *l, int divisor, int N)
+void MarcaMultiplos(int divisor, int N)
 {
-    for (int i = divisor+1; l[i] <= N; i++)
+    for (int i = divisor+1; array[i] <= N; i++)
     {
-        //printf("%d %d\n", l[i], l[divisor]);
-        if (l[i] % l[divisor] == 0)
+        //printf("%d %d\n", array[i], l[divisor]);
+        if (array[i] % array[divisor] == 0)
         {
-            l[i] = -1;
+            array[i] = -1;
         }  
     }
 }
 
-int ProximoNaoMarcado(int *l, int ultimo, int N)
+int ProximoNaoMarcado(int ultimo, int N)
 {
-    for (int i = ultimo+1; l[i] < N; i++)
+    for (int i = ultimo+1; array[i] < N; i++)
     {
-        if (l[i] != -1)
+        if (array[i] != -1)
         {
             return i;
         }  
@@ -36,18 +37,18 @@ int ProximoNaoMarcado(int *l, int ultimo, int N)
     return -1;
 }
 
-void ImprimePrimos(int *l, int N)
+void ImprimePrimos(int N)
 {
-    for (int i = 0; l[i] < N; i++)
+    for (int i = 0; array[i] < N; i++)
     {
-        if (l[i] != -1)
+        if (array[i] != -1)
         {
-            printf("%d ", l[i]);
+            printf("%d ", array[i]);
         }  
     }
 }
 
-void destroiLista(int *l)
+void destroiArray()
 {
-    free(l);
+    free(array);
 }
