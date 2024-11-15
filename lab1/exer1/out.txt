@@ -1,0 +1,9 @@
+0.12user 0.00system 0:00.12elapsed 100%CPU (0avgtext+0avgdata 2380maxresident)k
+0inputs+0outputs (0major+676minor)pagefaults 0swaps
+2.12user 0.02system 0:02.14elapsed 99%CPU (0avgtext+0avgdata 13212maxresident)k
+0inputs+0outputs (0major+3609minor)pagefaults 0swaps
+27.98user 0.07system 0:28.06elapsed 99%CPU (0avgtext+0avgdata 123252maxresident)k
+0inputs+0outputs (0major+30950minor)pagefaults 0swaps
+Command terminated by signal 2
+34.09user 0.04system 0:34.16elapsed 99%CPU (0avgtext+0avgdata 173324maxresident)k
+0inputs+0outputs (0major+43729minor)pagefaults 0swaps

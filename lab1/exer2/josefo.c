@@ -9,7 +9,7 @@ struct _tLista
 
 struct _tNode
 {
-    int indice;
+    unsigned long int indice;
     tNode *prox;
 };
 
@@ -60,6 +60,7 @@ tNode *retiraLista(tLista *l, tNode *ultimaPosicao, int N, int M)
     {
         l->fim = ant;
     }
+    // aqui imprime as pessoas que sairam
     //printf(" %d", aux->indice);
     ant->prox = aux->prox;
     free(aux);

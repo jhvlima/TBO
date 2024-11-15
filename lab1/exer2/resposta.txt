@@ -4,13 +4,12 @@
 
 3) Uma lista encadeada circular seria adequada, implementação no josefo.c
 
-4) Pode ser usado uma 
+4) Pode ser usado uma formula que calcula o lider que depende apenas do tamanho do N, que está na main.c
 
 5) Usando como base o resultados do valgrind que estão no arquivo 'experimentoValgrind.txt',
 percebe-se que são realizados aproximadamente N alocações e aproximadamente N * 16 bytes são usados
 
 6) Usando como base o resultados que estão no arquivo 'experimento.txt' temos,
-
 Running time (in sec.)
 
 N	            10^3	10^4	10^5	10^6	10^7	10^8	10^9	10^10
@@ -18,4 +17,11 @@ user time	    0       0       0       0.23    2.35    24.15   error   error
 system time     0       0       0       0       0.14    2.05    error   error               
 elapsed time    0       0       0       0.23    2.49    26.21   error   error                           
 
-7) 
+7)  Para a primeira implementação temos:
+    O(N) para iniciar a lista com N pessoas
+    O((N-1) * M) para retirar todos menos o lider
+    Resultando em O(N*M)
+
+    Para a segunda implementação temos:
+    O(N) para escoler o lider
+    Resultando em O(N)

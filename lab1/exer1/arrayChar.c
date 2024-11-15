@@ -11,7 +11,12 @@ void InitArray(int N)
 
 void MarcaMultiplos(int divisor, int N)
 {
-    for (int i = divisor + 1; i <= N; i++)
+    if (divisor <= 1)
+    {
+        return;
+    }
+    
+    for (int i = divisor + 1; i < N; i++)
     {
         //printf("%d %d\n", i, divisor);
         if (i % divisor == 0)

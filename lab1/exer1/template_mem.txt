@@ -1,4 +1,4 @@
 Memory consumption in bytes for N = 100_000:
-sieve_int	
-sieve_bool	
-sieve_bit	 
+sieve_int	 400 000 bytes
+sieve_bool	 100 000 bytes
+sieve_bit	 12 500 bytes

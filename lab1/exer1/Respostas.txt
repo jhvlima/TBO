@@ -2,10 +2,11 @@
 
 2) main.c, primos.c e arrayInt.c
 
-3) Um array ou uma lista seriam adequados pois é preciso percorrer a lista de números varias vezes para marcar os multiplose
-é importante guardar a posição (índice) do ultimo numero marcado
+3) Um array ou uma lista seriam adequados pois é preciso percorrer a lista de números varias vezes para marcar os multiplos e
+é importante guardar a posição (índice) do ultimo numero marcado, implementação no arrayInt.c
 
-4) 
+4) arrayChar.c arrayBit.c
 
-
-o bit da posicao 0 representa o estado do 2 e assim por diante
+5 e 6)experimentos no experimentoInt.txt, experimentoChar.txt, experimentoBit.txt e tabela de resultados
+no templete_mem.txt  e templete_time.txt
+O consumo foi esperado, com int consumindo mais, o char consumindo pouco menos e o bit consumindo bem menos.

@@ -1,6 +1,6 @@
 Running time (in sec.) vs. array type
 
-N	10^3	10^4	10^5	10^6	10^7	10^8	10^9	10^10
-int	
-char	
-bit	
+N	    10^3	10^4	10^5	10^6	10^7	10^8	10^9	10^10
+int	    0       0.02    1.88    166.11  error   error   error   error                        
+char    0       0.02    1.52    119.05  error   error   error   error                
+bit     0       0       0       0.01    0.12    2.14    28.06   error               	

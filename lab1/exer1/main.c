@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
         MarcaMultiplos(i, num);
         i = ProximoNaoMarcado(i, num);
     }
-    ImprimePrimos(num);
+    //ImprimePrimos(num);
     destroiArray();
     return 0;
 }
