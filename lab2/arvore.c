@@ -79,3 +79,44 @@ int alturaArv(tArv *a)
 
     return (alturaDir > alturaEsq) ? alturaDir : alturaEsq;
 }
+
+/**
+ * 3 - Caminhamento em  ́arvore (tree traversal)
+ */
+void visit(tArv *a)
+{
+    if (a)
+    {
+        printf(" %d", a->chave);
+    }
+}
+
+void rec_preorder(tArv *a, void (*visit)(tArv*))
+{
+    if (a)
+    {
+        visit(a);
+        rec_preorder(a->esq, visit);
+        rec_preorder(a->dir, visit);
+    }
+}
+
+void rec_inorder(tArv *a, void (*visit)(tArv*))
+{
+    if (a)
+    {
+        rec_preorder(a->esq, visit);
+        visit(a);
+        rec_preorder(a->dir, visit);
+    }
+}
+
+void rec_postorder(tArv *a, void (*visit)(tArv*))
+{
+    if (a)
+    {
+        rec_preorder(a->esq, visit);
+        rec_preorder(a->dir, visit);
+        visit(a);
+    }
+}

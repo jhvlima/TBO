@@ -1,0 +1,4 @@
+1) Implementação no arvore.h e arvore.c
+
+2) Implementação na main.c
+    

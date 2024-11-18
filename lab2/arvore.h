@@ -20,5 +20,16 @@ int getChave(tArv *a);
 void imprimeArv(tArv *a);
 int alturaArv(tArv *a);
 
+/**
+ * 3 - Caminhamento em  ́arvore (tree traversal)
+ */
+void visit(tArv *a);
+void rec_preorder(tArv *t, void (*visit)(tArv*));
+void rec_inorder(tArv *t, void (*visit)(tArv*));
+void rec_postorder(tArv *t, void (*visit)(tArv*));
+
+/**
+ * 4 - Caminhamento nao-recursivo
+ */
 
 #endif
