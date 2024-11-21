@@ -28,8 +28,4 @@ void rec_preorder(tArv *t, void (*visit)(tArv*));
 void rec_inorder(tArv *t, void (*visit)(tArv*));
 void rec_postorder(tArv *t, void (*visit)(tArv*));
 
-/**
- * 4 - Caminhamento nao-recursivo
- */
-
 #endif
