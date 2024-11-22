@@ -20,7 +20,7 @@ tArv *criaArv(int chave)
     return a;
 }
 
-tArv * insere(tArv *a, int chave)
+tArv *insere(tArv *a, int chave)
 {
     if (a == NULL)
     {
@@ -55,8 +55,26 @@ int getChave(tArv *a)
     return a->chave;
 }
 
+tArv *retornaDir(tArv *a)
+{
+    if (a->dir)
+    {
+        return a->dir;
+    }
+    return NULL;
+}
+
+tArv *retornaEsq(tArv *a)
+{
+    if (a->esq)
+    {
+        return a->esq;
+    }
+    return NULL;
+}
+
 void imprimeArv(tArv *a)
-{        
+{
     if (a)
     {
         printf("<");
@@ -87,36 +105,54 @@ void visit(tArv *a)
 {
     if (a)
     {
-        printf(" %d", a->chave);
+        //printf(" %d", a->chave);
     }
 }
 
-void rec_preorder(tArv *a, void (*visit)(tArv*))
+void rec_preorder(tArv *a, void (*visit)(tArv *))
 {
     if (a)
     {
         visit(a);
-        rec_preorder(a->esq, visit);
-        rec_preorder(a->dir, visit);
+        if (a->esq)
+        {
+            rec_preorder(a->esq, visit);
+        }
+        if (a->dir)
+        {
+            rec_preorder(a->dir, visit);
+        }
     }
 }
 
-void rec_inorder(tArv *a, void (*visit)(tArv*))
+void rec_inorder(tArv *a, void (*visit)(tArv *))
 {
     if (a)
     {
-        rec_preorder(a->esq, visit);
+        if (a->esq)
+        {
+            rec_preorder(a->esq, visit);
+        }
         visit(a);
-        rec_preorder(a->dir, visit);
+        if (a->dir)
+        {
+            rec_preorder(a->dir, visit);
+        }
     }
 }
 
-void rec_postorder(tArv *a, void (*visit)(tArv*))
+void rec_postorder(tArv *a, void (*visit)(tArv *))
 {
     if (a)
     {
-        rec_preorder(a->esq, visit);
-        rec_preorder(a->dir, visit);
+        if (a->esq)
+        {
+            rec_preorder(a->esq, visit);
+        }
+        if (a->dir)
+        {
+            rec_preorder(a->dir, visit);
+        }
         visit(a);
     }
 }

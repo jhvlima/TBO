@@ -1,4 +1,22 @@
+OBS: a main.c foi sendo alterada para responder os exercicios 
+
 1) Implementação no arvore.h e arvore.c
 
 2) Implementação na main.c
-    
+    1. O desvio padrão é baixo, mostrando que não há muita variabilidade na altura da árvore nesse algoritmo.
+    2. A altura mínima é log N, e a máxima é de uma árvore totalmente desbalanceada sendo N-1 
+    3. Para N igual a 10^6 o mínimo seria aproximadamente 19 e o máximo, 999.999. Logo, a média experimental foi boa, estando muito mais próxima do valor mínimo, 
+    o que indica que as árvores estão bem balanceadas, o suficiente para proporcionar um bom desempenho.
+
+3) Implementação no arvore.c
+
+4) Implementação no pilha.c
+
+5) Implementação no pilha.c
+
+6) Usando como base os resultados registrados em time_template.txt, as versões recursivas foram um pouco mais rápidas.
+Para esse cenário, as funções recursivas são mais fáceis de implementar e, para essa entrada, apresentaram um melhor desempenho do que as versões iterativas.
+
+7) Implementação no fila.c
+
+8) Implementação no fila.c

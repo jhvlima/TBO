@@ -12,25 +12,24 @@ struct _tPilha
 tPilha *iniciaPilha()
 {
     tPilha *p = calloc(1, sizeof(tPilha));
-    p->topo -1;
+    p->topo = -1;
     return p;
 }
 
-tPilha *pop(tPilha *p)
+tArv *pop(tPilha *p)
 {
     tArv *aux = p->array[p->topo];
     p->topo--;
     return aux;
 }
 
-void push(tPilha *p, int valor)
+void push(tPilha *p, tArv *a)
 {
-    tArv *novo = criaArv(valor);
-    p->array[p->topo] = novo;
     p->topo++;
+    p->array[p->topo] = a;
 }
 
-void non_rec_preorder(tArv *t, void (*visit)(tArv*))
+void non_rec_preorder(tArv *t, void (*visit)(tArv *))
 {
     if (t)
     {
@@ -40,21 +39,68 @@ void non_rec_preorder(tArv *t, void (*visit)(tArv*))
         {
             t = pop(p);
             visit(t);
-            if (t)
+            if (retornaDir(t))
             {
-                /* code */
+                push(p, retornaDir(t));
             }
-            
+            if (retornaEsq(t))
+            {
+                push(p, retornaEsq(t));
+            }
         }
+        free(p);
     }
 }
 
-void non_rec_inorder(tArv *t, void (*visit)(tArv*))
+void non_rec_inorder(tArv *t, void (*visit)(tArv *))
 {
-
+    if (t)
+    {
+        tPilha *p = iniciaPilha();
+        while (p->topo != -1 || t)
+        {
+            if (t)
+            {
+                push(p, t);
+                t = retornaEsq(t);
+            }
+            else
+            {
+                t = pop(p);
+                visit(t);
+                t = retornaDir(t);
+            }
+        }
+        free(p);
+    }
 }
 
-void non_rec_postorder(tArv *t, void (*visit)(tArv*))
+void non_rec_postorder(tArv *t, void (*visit)(tArv *))
 {
-
+    if (t)
+    {
+        tPilha *p = iniciaPilha();
+        tArv *ultimoVisitado = NULL;
+        while (p->topo != -1 || t)
+        {
+            if (t)
+            {
+                push(p, t);
+                t = retornaEsq(t);
+            }
+            else
+            {
+                if (retornaDir(p->array[p->topo]) && ultimoVisitado != retornaDir(p->array[p->topo]))
+                {
+                    push(p, retornaDir(p->array[p->topo]));
+                }
+                else
+                {
+                    visit(p->array[p->topo]);
+                    ultimoVisitado = pop(p);
+                }
+            }
+        }
+        free(p);
+    }
 }

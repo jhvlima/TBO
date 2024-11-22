@@ -1,0 +1,14 @@
+rec_preorder
+1.527421
+rec_inorder
+1.420122
+rec_postorder
+1.527147
+non_rec_inorder
+2.068177
+non_rec_postorder
+0.000079
+non_rec_preorder
+1.984145
+nonRecursiveLevelOrderTraversal
+2.505615

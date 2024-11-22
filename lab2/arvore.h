@@ -19,6 +19,8 @@ void destroi(tArv *a);
 int getChave(tArv *a);
 void imprimeArv(tArv *a);
 int alturaArv(tArv *a);
+tArv *retornaEsq(tArv *a);
+tArv *retornaDir(tArv *a);
 
 /**
  * 3 - Caminhamento em  ́arvore (tree traversal)
