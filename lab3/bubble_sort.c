@@ -3,8 +3,17 @@
 
 void sort(Item *a, int lo, int hi)
 {
-   for (size_t i = lo; i < hi; i++)
+   for (size_t i = lo; i < hi - 1; i++)
    {
-      compexch(a[i], a[i + 1])
+      int flag = 0;
+      for (size_t j = i + 1; j < hi - 1; j++)
+      {
+         compexch(a[j], a[j - 1])
+         flag = 1;
+      }
+      if (!flag)
+      {
+         break;
+      }
    }
 }

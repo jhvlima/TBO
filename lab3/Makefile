@@ -2,8 +2,11 @@ entradas = ./in/sorted/10Ksorted.txt ./in/sorted/100Ksorted.txt ./in/sorted/1Kso
 
 bub:
 	gcc -Wall client.c bubble_sort.c
-	./a.out < $(entradas) > results_bubble.txt
-
+	rm -rf results_bubble.txt
+	@for entrada in $(entradas); do \
+	    echo "Procesando $$entrada..." | tee -a results_bubble.txt; \
+	    ./a.out < $$entrada >> results_bubble.txt; \
+	done
 sel:
 	gcc -Wall client.c selection_sort.c
 
