@@ -14,10 +14,10 @@ ENTRADAS_10K = ./in/sorted/10Ksorted.txt ./in/reverse_sorted/10Kreverse_sorted.t
 ENTRADAS_100K = ./in/sorted/100Ksorted.txt ./in/reverse_sorted/100Kreverse_sorted.txt \
                 ./in/unif_rand/100Kunif_rand.txt ./in/nearly_sorted/100Knearly_sorted.txt
 
-# Regla general para compilar
-all: $(BIN_BUB) $(BIN_SEL) $(BIN_INS) $(BIN_SHA)
+# Regra geral para fezer os exeperimento
+all: bub sel ins sha
 
-# Reglas para compilar cada algoritmo
+# Regra para compilar cada algoritmo
 $(BIN_BUB): client.c bubble_sort.c
 	$(CC) $(CFLAGS) -o $@ client.c bubble_sort.c
 
@@ -30,7 +30,7 @@ $(BIN_INS): client.c insertion_sort.c
 $(BIN_SHA): client.c shaker_sort.c
 	$(CC) $(CFLAGS) -o $@ client.c shaker_sort.c
 
-# Reglas para ejecutar pruebas
+# Regra para executar testes
 bub: $(BIN_BUB)
 	@rm -rf results_bubble.txt
 	$(MAKE) run_tests BIN=$(BIN_BUB) OUTPUT=results_bubble.txt
@@ -47,7 +47,7 @@ sha: $(BIN_SHA)
 	@rm -rf results_shaker.txt
 	$(MAKE) run_tests BIN=$(BIN_SHA) OUTPUT=results_shaker.txt
 
-# Regla para ejecutar pruebas com las entradas
+# Regra para executar testes com as entradas
 run_tests:
 	@for entrada in $(ENTRADAS_1K); do \
 	    echo "Procesando $$entrada com $(BIN) (1K)..." | tee -a $(OUTPUT); \
@@ -62,6 +62,6 @@ run_tests:
 	    ./$(BIN) 100000 < $$entrada >> $(OUTPUT); \
 	done
 
-# Regla para limpiar archivos generados
+# Regra para limpar arquivos gerados
 clean:
 	rm -f *.o $(BIN_BUB) $(BIN_SEL) $(BIN_INS) $(BIN_SHA) results_*.txt

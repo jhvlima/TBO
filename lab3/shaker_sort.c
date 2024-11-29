@@ -3,5 +3,25 @@
 
 void sort(Item *a, int lo, int hi)
 {
+    for (int i = lo; i < hi / 2; i++)
+    {
+        int flag = 0;
 
+        for (int j = lo; j < hi - i - 1; j++)
+        {
+            compexch(a[j], a[j + 1])
+                flag = 1;
+        }
+
+        for (int k = hi - i - 1; k > lo; k--)
+        {
+            compexch(a[k - 1], a[k])
+                flag = 1;
+        }
+
+        if (!flag)
+        {
+            break;
+        }
+    }
 }

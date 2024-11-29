@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "item.h"
-
+/**
+ *  troca i com o menor elemento a direita de i e anda com i pra direita
+ */
 void sort(Item *a, int lo, int hi)
 {
     for (int i = lo; i < hi - 1; i++)
