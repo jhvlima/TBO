@@ -1,0 +1,22 @@
+| Entrada               | Bubble Sort      | Insertion Sort      | Selection Sort      | Shaker Sort     |
+|-----------------------|------------------|---------------------|---------------------|-----------------|
+| 1K - Ordenado         | 0.000002         | 0.000004            | 0.001335            | 0.000005        |
+| 1K - Reverso          | 0.002264         | 0.001765            | 0.001251            | 0.002335        |
+| 1K - Aleatório        | 0.003047         | 0.001001            | 0.001376            | 0.001856        |
+| 1K - Quase Ordenado   | 0.000052         | 0.000005            | 0.001532            | 0.000026        |
++--------------------------------------------------------------------------------------------------------+
+| 10K - Ordenado        | 0.000032         | 0.000028            | 0.128622            | 0.000043        |
+| 10K - Reverso         | 0.247604         | 0.222454            | 0.128643            | 0.275888        |
+| 10K - Aleatório       | 0.275109         | 0.113440            | 0.133464            | 0.241871        |
+| 10K - Quase Ordenado  | 0.000699         | 0.000051            | 0.120728            | 0.000249        |
++--------------------------------------------------------------------------------------------------------+
+| 100K - Ordenado       | 0.000217         | 0.000335            | 12.175428           | 0.000461        |
+| 100K - Reverso        | 27.142256        | 24.807775           | 13.150033           | 28.926061       |
+| 100K - Aleatório      | 36.612257        | 11.428033           | 13.481636           | 27.604063       |
+| 100K - Quase Ordenado | 0.031670         | 0.000503            | 13.315428           | 0.002788        |
+
+
+O Bubble Sort apresentou aumentos consideráveis com o aumento do tamanho das entradas, evidenciando sua baixa eficiência com entradas maiores, mas para casos ordenados e quase ordenados ele teve um desenpenho O(n). 
+O Selection Sort teve um comportamento bem consistente em todos os casos de ordenação da entrada, apresentando um desempenho razoável.
+Por outro lado, o Insertion Sort demonstrou um comportamento O(n) para os casos de entradas já ordenadas e quase ordenadas, mas o reverso foi bem pior que o aleatório.
+O Shaker Sort, uma variação do Bubble Sort, teve desempenho ligeiramente melhor para alguns casos, mas ainda compartilhou da mesma limitação de escalabilidade para os casos aleatório e reverso.

@@ -29,11 +29,11 @@ int main(int argc, char *argv[])
     double seconds = ((double)end - start) / CLOCKS_PER_SEC;
     printf("### %lf segundos\n", seconds);
 
-    // Output
+    /*/ Output
     for (size_t i = 0; i < N; i++)
     {
         printf(" %d", array[i]);
-    }
+    }*/
     printf("\n");
     free(array);
     return 0;

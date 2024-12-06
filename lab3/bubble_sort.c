@@ -8,8 +8,11 @@ void sort(Item *a, int lo, int hi)
       int flag = 0;
       for (int j = lo; j < hi - i - 1; j++)
       {
-         compexch(a[j], a[j + 1])
-             flag = 1;
+         if (less(a[j + 1], a[j]))
+         {
+            exch(a[j], a[j + 1]);
+            flag = 1;
+         }
       }
       if (!flag)
       {
