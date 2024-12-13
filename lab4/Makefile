@@ -1,35 +1,41 @@
 # Variables comunes
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -O2
 VALGRIND = valgrind
-BIN_MER = merge_sort
 
+# Output binaries
+BINARIES = merge_sort_1 merge_sort_2 merge_sort_3 merge_sort_4 merge_sort_5 merge_sort_6 merge_sort_7
+
+# Input files
 ENTRADAS_1M = ./input/sorted/100000.txt ./input/reverse_sorted/100000.txt ./input/unif_rand/100000.txt ./input/nearly_sorted/100000.txt
 ENTRADAS_10M = ./input/sorted/1000000.txt ./input/reverse_sorted/1000000.txt ./input/unif_rand/1000000.txt ./input/nearly_sorted/1000000.txt
 
-# Regra geral para fezer os exeperimento
-all: mer
+# General target
+all: $(BINARIES)
 
-# Regra para compilar cada algoritmo
-$(BIN_MER): client.c merge_sort.c
-	$(CC) $(CFLAGS) -o $@ client.c merge_sort.c
+# Rules for compiling each version
+merge_sort_%: merge_sort_%.c client.c item.h
+	$(CC) $(CFLAGS) -o $@ client.c merge_sort_$*.c
 
-# Regra para executar testes
-mer: $(BIN_MER)
-	@rm -rf results_merge.txt
-	$(MAKE) run_tests BIN=$(BIN_MER) OUTPUT=results_merge.txt
+# Rule for running experiments for all versions
+run_all: $(BINARIES)
+	@for bin in $(BINARIES); do \
+	    echo "Running tests for $$bin..."; \
+	    $(MAKE) run_tests BIN=$$bin OUTPUT=results_$$bin.txt; \
+	done
 
-# Regra para executar testes com as entradas
+# Rule for running tests with inputs
 run_tests:
-	@for entrada in $(ENTRADAS_1K); do \
-	    echo "Procesando $$entrada com $(BIN) (1M)..." | tee -a $(OUTPUT); \
+	@rm -f $(OUTPUT)
+	@for entrada in $(ENTRADAS_1M); do \
+	    echo "Processing $$entrada with $(BIN) (1M)..." | tee -a $(OUTPUT); \
 	    ./$(BIN) 100000 < $$entrada >> $(OUTPUT); \
 	done
-	@for entrada in $(ENTRADAS_10K); do \
-	    echo "Procesando $$entrada com $(BIN) (10M)..." | tee -a $(OUTPUT); \
+	@for entrada in $(ENTRADAS_10M); do \
+	    echo "Processing $$entrada with $(BIN) (10M)..." | tee -a $(OUTPUT); \
 	    ./$(BIN) 1000000 < $$entrada >> $(OUTPUT); \
 	done
 
-# Regra para limpar arquivos gerados
+# Clean rule
 clean:
-	rm -f *.o $(BIN_MER) results_*.txt
+	rm -f *.o $(BINARIES) results_*.txt
