@@ -80,7 +80,7 @@ void PQ_insert(PQ *pq, Event *e)
     //       Assuma que 'e' não é nulo. É importante testar overflow (inserção
     //       em uma fila que já contém o número máximo de eventos) para evitar
     //       dores de cabeça com acessos inválidos na memória.
-    if (pq->size >= pq->capacity)
+    if (pq->size > pq->capacity)
     {
         fprintf(stderr, "Erro: FIla Cheia!\n");
         return;
