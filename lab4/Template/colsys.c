@@ -8,7 +8,7 @@
 #include "PQ.h"
 
 // Número de eventos de redraw por pulso de clock.
-#define Hz (0.5)
+#define Hz (1)
 
 // Fila de prioridade dos eventos de colisão.
 static PQ *pq;
@@ -128,6 +128,34 @@ void predict(Particle *p) {
     //   função 'create_event' em 'event.h', um evento de colisão com uma
     //   parece vertical é criado passando-se a PRIMEIRA partícula para a função
     //   como nula.
+
+    if (p == NULL) return;
+
+    // Prever colisão com outras partículas
+    for (int i = 0; i < N; i++) {
+        if (particles[i] != p) { // Evita prever colisão de 'p' com ela mesma
+            double dt = time_to_hit(p, particles[i]);
+            if (t + dt <= limit) { // Apenas eventos dentro do tempo limite
+                Event *e = create_event(t + dt, p, particles[i]);
+                PQ_insert(pq, e);
+            }
+        }
+    }
+
+    // Prever colisão com a parede vertical
+    double dt_vertical = time_to_hit_vertical_wall(p);
+    if (t + dt_vertical <= limit) {
+        Event *e = create_event(t + dt_vertical, p, NULL);
+        PQ_insert(pq, e);
+    }
+
+    // Prever colisão com a parede horizontal
+    double dt_horizontal = time_to_hit_horizontal_wall(p);
+    if (t + dt_horizontal <= limit) {
+        Event *e = create_event(t + dt_horizontal, NULL, p);
+        PQ_insert(pq, e);
+    }
+
 }
 
 /*
@@ -188,6 +216,45 @@ void simulate() {
     // - Por fim, atualize a fila com as novas colisões envolvendo as
     //   partículas do evento, chamando a função predict() com os argumentos
     //   adequados.
+
+    while (!PQ_is_empty(pq) && t < limit) {
+        // Retira o evento de menor tempo da fila
+        Event *e = PQ_delmin(pq);
+        if (!is_valid(e)) { // Descarte se o evento for inválido
+            destroy_event(e);
+            continue;
+        }
+
+        // Avança o tempo da simulação
+        double dt = get_time(e) - t;
+        t = get_time(e);
+
+        // Move todas as partículas para a nova posição
+        for (int i = 0; i < N; i++) {
+            move_particle(particles[i], dt);
+        }
+
+        // Processa o evento
+        if (get_A(e) != NULL && get_B(e) != NULL) {
+            // Colisão entre duas partículas
+            bounce_off(get_A(e), get_B(e));
+        } else if (get_A(e) != NULL && get_B(e) == NULL) {
+            // Colisão com a parede vertical
+            bounce_off_vertical_wall(get_A(e));
+        } else if (get_A(e) == NULL && get_B(e) != NULL) {
+            // Colisão com a parede horizontal
+            bounce_off_horizontal_wall(get_B(e));
+        } else if (get_A(e) == NULL && get_B(e) == NULL) {
+            // Evento de redesenho
+            redraw();
+        }
+
+        // Atualiza a fila de prioridade com novos eventos
+        if (get_A(e) != NULL) predict(get_A(e));
+        if (get_B(e) != NULL) predict(get_B(e));
+
+        destroy_event(e); // Libera memória do evento processado
+    }
 
     printf("SIMULATION: Exiting main loop.\n");
 }
