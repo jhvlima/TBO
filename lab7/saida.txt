@@ -1,0 +1,22 @@
+radix:
+abra.txt
+Tempo de ordenação: 0.000002 segundos
+
+tale.txt
+Tempo de ordenação: 0.381149 segundos
+
+moby.txt
+Tempo de ordenação: 0.648612 segundos
+
+qsort:
+abra.txt
+Tempo de ordenação: 0.000001 segundos
+
+tale.txt
+Tempo de ordenação: 0.340182 segundos
+
+moby.txt
+Tempo de ordenação: 0.635521 segundos
+
+
+Pelos testes a diferença de desempenho é pouca, provavlemente por conta do tamanho das sub strings.

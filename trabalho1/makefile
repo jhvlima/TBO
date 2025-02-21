@@ -1,27 +1,24 @@
-# Variables comunes
+# Variáveis de compilação
 CC = gcc
 CFLAGS = -Wall
 VALGRIND = valgrind
 BIN = main
 
-# Regra geral para fezer os exeperimento
-all: mer
+# Regras de compilação
+all: $(BIN)
 
-# Regra para compilar cada algoritmo
-$(BIN): main.c
-	$(CC) $(CFLAGS) -o $@ main.c
+$(BIN): main.o
+	$(CC) $(CFLAGS) -o $(BIN) main.o
 
-# Regra para executar testes
-mer: $(BIN)
-	$(MAKE) run_tests BIN=$(BIN) OUTPUT=results_merge.txt
+main.o: main.c
+	$(CC) $(CFLAGS) -c main.c
 
-# Regra para executar testes com as entradas
-run_tests:
-	@for entrada in $(ENTRADAS_1M); do \
-	    echo "Procesando $$entrada com $(BIN) (1M)..." | tee -a $(OUTPUT); \
-	    ./$(BIN) 100000 < $$entrada >> $(OUTPUT); \
-	done
+# Regras de execução
+run: $(BIN)
+	./$(BIN)
 
-# Regra para limpar arquivos gerados
+valgrind: $(BIN)
+	$(VALGRIND) ./$(BIN)
+
 clean:
-	rm -f *.o $(BIN) results_*.txt
+	rm -f *.o $(BIN)

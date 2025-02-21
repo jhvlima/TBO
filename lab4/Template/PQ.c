@@ -99,8 +99,8 @@ static void heapify_down(PQ *pq, int index)
 
     while (1)
     {
-        left = 2 * index + 1;
-        right = 2 * index + 2;
+        left = (index << 1) + 1;
+        right = (index << 1) + 2;
         smallest = index;
 
         // Verifica o filho da esquerda
