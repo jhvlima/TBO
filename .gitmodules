@@ -1,7 +1,0 @@
-[submodule "trab1tbo"]
-	path = trab1tbo
-	url = https://github.com/jhvlima/trab1tbo.git
-
-[submodule "ARVORE_B"]
-	path = ARVORE_B
-	url = https://github.com/pedromendonca2/ARVORE_B.git
