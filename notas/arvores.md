@@ -1,26 +1,22 @@
 # Árvore Binária de Busca - BST
 
-# Árvore B
-- cresce de baixo para cima
-
 # Árvore 2-3
 - cresce de baixo para cima
 
-> [Conteúdo](https://www.ime.usp.br/~pf/estruturas-de-dados/aulas/st-twothree.html)
+[Conteúdo Árvore 2-3](https://www.ime.usp.br/~pf/estruturas-de-dados/aulas/st-twothree.html)
 
-> [Visualizador](https://kubokovac.eu/gnarley-trees/23tree.html)
+[Visualizador Árvore 2-3](https://kubokovac.eu/gnarley-trees/23tree.html)
 
 # Árvore Rubro Negra
+- representa uma árvore 2-3 em uma BST com cores
+- Sedgewick, Robert. "Left-leaning red-black trees." Dagstuhl Workshop on Data Structures. 2008.
 
-Versão: Sedgewick, Robert. "Left-leaning red-black trees." Dagstuhl Workshop on Data Structures. 2008.
-
-> [Visualizador](https://tjkendev.github.io/bst-visualization/red-black-tree/left-leaning.html)
+[Visualizador LLRBT](https://tjkendev.github.io/bst-visualization/red-black-tree/left-leaning.html)
 
 # Árvore AVL
 
-
-
-
+# Árvore B
+- cresce de baixo para cima
 
 # Árvores em geral
-[Conteúdo](https://kubokovac.eu/gnarley-trees/)
+[Conteúdo de Árvores](https://kubokovac.eu/gnarley-trees/)
