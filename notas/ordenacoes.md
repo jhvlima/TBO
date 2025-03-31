@@ -53,11 +53,11 @@ while (h < n/3) h = 3*h + 1             <- começa com o maior numero da sequenc
 
 
 # Quick
-- no pior caso é quadratico, o shufle não deixa isso acontecer
+- no pior caso é quadratico, mas o shufle não deixa isso acontecer
 - **melhoriras** 
-    - usar inserton sort para sub-arrays pequenos (menor que 10)
+    - usar insertion sort para sub-arrays pequenos (menor que 10)
     - usar o primeiro partition como a mediana de 3 do array
-    - o pivo junta todas as chaves iguais entre o ppnteiro lessThen, greaterThen 
+    - o pivo junta todas as chaves iguais entre os ponteiros lessThen, greaterThen 
 ## Padrão
 ```
 suffle(a)
@@ -107,7 +107,8 @@ if hi <= lo + CUTOFF - 1
     insertion(a, lo, hi)
     return
 mediana = mediana(a, lo, hi)
-exch(a[lo], a[mediana])
+exch(a[lo], a[mediana])         <- leva o valor da mediana para o inicio para ser usado no partition
+
 j = partition(a, lo, hi)
 quick(a, lo, j-1)
 quick(a, j+1, hi)
@@ -134,22 +135,57 @@ quick(a, gt+1, hi)
 ```
 
 # Heap
+- usa uma fila de prioridade para retirar as chaves em ordem
+- pode ser feito em um vetor onde os filhos de a[i] são a[2*i], a[(2*i)+1] como filho da esquerda e da direita respectivamente
+- insere na fila, reordena a fila e retira a proxima chave
 
+## Padrão
+```
+inicia_PQ
+for i++ = 0 to n                <- O(n)
+    insere_PQ(a[i])             <- Aqui deve ser reodenado a fila após a inserção
+
+for i-- = n-1 to 0
+    a[i] = retiraPrimeiro_PQ
+```
+
+## In-place e top-down
+```
+void sort(a, lo, hi)            <- a é um array desordenado
+for i++ = lo to hi              <- O(n)
+    fix_up(a[i])                <- O(log (n)) Aqui deve ser reordenado a fila após a inserção para construir a heap
+
+while n > 1
+    exch(a[1], a[n])        
+    fix_down(a, --n, 1)         < Aqui ordena a heap
+```
+
+## In-place e botton-up
+```
+void sort(a, lo, hi)            <- a é uma arvore binária completa em um array
+for i++ = lo to hi              <- O(n)
+    fix_up(a[i])                <- O(log (n)) Aqui deve ser reordenado a fila após a inserção
+
+while n > 1
+    exch(a[1], a[n])        
+    fix_down(a, --n, 1)         <
+```
 # Radix
 ## MSD
 ## LSD
 
 # Resumo
-Método          | Inplace  | Estável  | Melhor  | Médio  | Pior  |
-:-------------: | :------: | :------: | :-----: | :----: | :---: |
-Selection       | X        |          |         |        |       |
-Insertion       | X        | X        |         |        |       |
-Shell           | X        |          |         |        |       |
-Merge           |          |          |         |        |       |
-Tim             |          |          |         |        |       |
-Quick           | X        |          |         |        |       |
-3-way Quick     |          |          |         |        |       |
-Heap            |          |          |         |        |       |
+
+Método          | Inplace  | Estável  | Melhor  | Médio  | Pior   | Espaço
+:-------------: | :------: | :------: | :-----: | :----: | :----: | :----:
+Selection       | X        |          | n²/2    | n²/2   | n²/2   | O(1)
+Insertion       | X        | X        | n       | n²/4   | n²/2   | O(1)
+Shell           | X        |          | n log n | ?      | n^(3/2)| O(1)
+Merge           |          | X        | n log n | n log n| n log n| O(n)
+Quick           | X        |          | n log n | n log n| n²     | O(log n)
+3-way Quick     |          |          |         |        |        |
+Heap            | X        |          | n log n | n log n| n log n| O(1)
+Radix (LSD)     |          | X        | n*k     | n*k    | n*k    | O(n+k)
 
 # Referências
 ### [Visualizador](https://csvistool.com/)
