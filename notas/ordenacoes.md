@@ -49,8 +49,78 @@ while (h < n/3) h = 3*h + 1             <- começa com o maior numero da sequenc
 # Merge
 - Divide o vetor de 2, ordena recursivamente cada metade, unifica(merge) as duas metades
 - no maximo N log(N) comparaçoes
-- melhoriras: usar inserton sort para sub-arrays pequenos (menor que 10), parar quando ja estiver ordenado
+- **melhoriras**: 
+    - usar inserton sort para sub-arrays pequenos (menor que 10)
+    - parar quando ja estiver ordenado
 
+## Padrão
+```
+sort(a, aux, lo, hi)
+    aux = malloc(n)
+    mergeSort(a, aux, lo, hi)
+    free(aux)
+```
+```
+mergeSort(a, aux, lo, hi)
+    if hi < lo
+        return
+    mid = lo + (hi-lo)/2
+    mergeSort(a, aux, lo, mid)
+    mergeSort(a, aux, mid+1, hi)
+    merge(a, aux, lo, mid, hi)
+```
+```
+merge(a, aux, lo, mid, hi)
+    for i++ = lo to hi
+        aux[i] = a[i]
+
+    k = lo, j = mid + 1
+    for i++ = lo to hi
+        if k > mid
+            a[i] = aux[j++]
+        else if j > hi
+            a[i] = aux[k++]
+        else if aux[j] < aux[k]
+            a[i] = aux[j++]
+        else 
+            a[i] = aux[k++]
+```
+
+## Cutoff + parar quando as metades já estão ordenadas
+```
+sort(a, aux, lo, hi)
+    aux = malloc(n)
+    mergeSort(a, aux, lo, hi)
+    free(aux)
+```
+```
+mergeSort(a, aux, lo, hi)
+    if hi < lo + CUTOFF + 1             <- Cutoff qaundo tiver poucos elementos evita o aumento de chamadas recursivas
+        insertion(a, lo, hi)
+        return
+    mid = lo + (hi-lo)/2
+    mergeSort(a, aux, lo, mid)
+    mergeSort(a, aux, mid+1, hi)
+    if a[mid] < a[mid+1]                <- se a maior chave da primeira metade for menor que a menor da segunda, então tudo está em ordem no array 
+       return
+    merge(a, aux, lo, mid, hi)
+```
+```
+merge(a, aux, lo, mid, hi)
+    for i++ = lo to hi
+        aux[i] = a[i]
+
+    k = lo, j = mid + 1
+    for i++ = lo to hi
+        if k > mid
+            a[i] = aux[j++]
+        else if j > hi
+            a[i] = aux[k++]
+        else if aux[j] < aux[k]
+            a[i] = aux[j++]
+        else 
+            a[i] = aux[k++]
+```
 
 # Quick
 - no pior caso é quadratico, mas o shufle não deixa isso acontecer
@@ -168,11 +238,53 @@ for i++ = lo to hi              <- O(n)
 
 while n > 1
     exch(a[1], a[n])        
-    fix_down(a, --n, 1)         <
+    fix_down(a, --n, 1)         <- 
 ```
 # Radix
+```
+countSort(a, aux, count, R)
+    for i++ = 0 to n                <- conta a frequencia de cada caracter
+        count[a[i]+1]++             <- deixa o primeiro indice vazio
+
+    for i++ = 0 to R                <- acumular a frequencia de todos os caracteres anteriores até o caracter atual
+        count[i+1] += count[i]
+
+    for i++ = 0 to n                <- movimenta os caracteres para o auxiliar
+        aux[count[a[i]]++] = a[i]
+
+    for i++ = 0 to n                <- coloca o vetor ordenado no vetor original
+        a[i] = aux[i]
+
+```
+## Mais detalhado
+```
+for i++ = 0 to n                <- conta a frequencia de cada caracter
+    index = a[i] + 1
+    count[index]++             <- começa do indice 1
+
+for i++ = 0 to R                <- acumular a frequencia de todos os caracteres anteriores até o caracter atual
+    prev_count = count[i]  
+    count[i + 1] += prev_count
+
+for i++ = 0 to n                <- movimenta os caracteres para o auxiliar
+    int pos = count[a[i]]       <- Obtém a posição correta para a[i] no vetor auxiliar
+    aux[pos] = a[i]             <- Insere o elemento na posição correta
+    count[a[i]]++               <- Atualiza a posição para a próxima ocorrência de a[i]
+
+for i++ = 0 to n
+    a[i] = aux[i]               <- coloca o vetor ordenado no vetor original
+
+```
 ## MSD
+- Ordena os elementos começando pelo dígito mais significativo (da esquerda para a direita).
+- Usa uma abordagem recursiva para dividir os elementos em grupos com base no dígito atual.
+- É eficiente para strings ou números com comprimentos variáveis.
+
 ## LSD
+Ordena strings de tamanho fixo de forma estável, ordenando da direita para a esquerda
+- Ordena os elementos começando pelo dígito menos significativo (da direita para a esquerda).
+- É mais comum e fácil de implementar.
+- Ideal para números inteiros ou strings de mesmo comprimento.
 
 # Resumo
 
@@ -187,7 +299,109 @@ Quick           | X        |          | n log n | n log n| n²     | O(log n)
 Heap            | X        |          | n log n | n log n| n log n| O(1)
 Radix (LSD)     |          | X        | n*k     | n*k    | n*k    | O(n+k)
 
+---
+
+### Casos de Uso
+- **Selection Sort**: Útil para listas pequenas onde o custo de troca é baixo.
+- **Insertion Sort**: Ideal para listas quase ordenadas, como logs de eventos.
+- **Merge Sort**: Usado em sistemas que precisam de estabilidade, como ordenação de registros em bancos de dados.
+- **Quick Sort**: Amplamente usado em bibliotecas padrão devido à sua eficiência em listas grandes.
+- **Heap Sort**: Útil em sistemas embarcados onde o espaço extra é limitado.
+- **Radix Sort**: Usado para ordenar números inteiros ou strings, como em sistemas de classificação de documentos.
+
+---
+
+### Comparação entre algoritmos
+| Algoritmo      | Melhor para               | Limitações                     |
+|----------------|---------------------------|--------------------------------|
+| Selection Sort | Listas pequenas           | Sempre quadrático              |
+| Insertion Sort | Listas quase ordenadas    | Ineficiente para listas grandes|
+| Merge Sort     | Estabilidade necessária   | Requer espaço extra            |
+| Quick Sort     | Listas grandes            | Não é estável                  |
+| Heap Sort      | Espaço limitado           | Não é estável                  |
+| Radix Sort     | Números inteiros/strings  | Requer espaço extra            |
+
+---
+
+### **Tipos de entradas**
+1. **Aleatória**: Elementos estão em uma ordem completamente aleatória.
+2. **Ordenada (crescente)**: Elementos já estão em ordem crescente.
+3. **Ordenada (decrescente)**: Elementos estão em ordem decrescente.
+4. **Entrada conhecida**: Estruturas específicas, como muitos elementos repetidos ou padrões previsíveis.
+
+### **Comportamento dos algoritmos**
+
+| Algoritmo      | Aleatória                  | Crescente                 | Decrescente               | Entrada conhecida          |
+|----------------|----------------------------|---------------------------|---------------------------|----------------------------|
+| **Selection**  | Sempre O(n²)              | Sempre O(n²)              | Sempre O(n²)              | Sempre O(n²)               |
+| **Insertion**  | O(n²/4) (médio caso)      | O(n) (melhor caso)        | O(n²) (pior caso)         | Bom para quase ordenados   |
+| **Shell**      | O(n log²n) (médio caso)   | O(n log n) (melhor caso)  | O(n log²n) (médio caso)   | Depende da sequência de h  |
+| **Merge**      | O(n log n)                | O(n log n)                | O(n log n)                | O(n log n)                 |
+| **Quick**      | O(n log n) (médio caso)   | O(n²) (pior caso)         | O(n²) (pior caso)         | O(n log n) com shuffle     |
+| **3-way Quick**| O(n log n)                | O(n log n)                | O(n log n)                | Excelente para repetidos   |
+| **Heap**       | O(n log n)                | O(n log n)                | O(n log n)                | O(n log n)                 |
+| **Radix (LSD)**| O(n*k)                    | O(n*k)                    | O(n*k)                    | O(n*k)                     |
+
+---
+
+#### **1. Selection Sort**
+- **Aleatória**: Sempre realiza `n²/2` comparações e `n` trocas, independentemente da entrada.
+- **Crescente/Decrescente**: Não aproveita nenhuma ordenação prévia.
+- **Entrada conhecida**: Não há otimizações para padrões específicos.
+
+#### **2. Insertion Sort**
+- **Aleatória**: Realiza cerca de `n²/4` comparações e trocas no médio caso.
+- **Crescente**: Melhor caso, apenas `n-1` comparações, pois não há trocas.
+- **Decrescente**: Pior caso, realiza `n²/2` comparações e trocas.
+- **Entrada conhecida**: Excelente para entradas quase ordenadas.
+
+#### **3. Shell Sort**
+- **Aleatória**: Depende da sequência de incrementos (h). Geralmente O(n log²n).
+- **Crescente**: Melhor caso, O(n log n), pois há menos trocas.
+- **Decrescente**: Similar ao caso aleatório, O(n log²n).
+- **Entrada conhecida**: Pode ser eficiente, mas depende da sequência de h.
+
+#### **4. Merge Sort**
+- **Aleatória**: Sempre O(n log n), pois divide e conquista de forma consistente.
+- **Crescente/Decrescente**: Não aproveita ordenação prévia, mas mantém O(n log n).
+- **Entrada conhecida**: Não há otimizações específicas, mas é estável.
+
+#### **5. Quick Sort**
+- **Aleatória**: O(n log n) no médio caso, especialmente com embaralhamento (shuffle).
+- **Crescente/Decrescente**: Pior caso, O(n²), se o pivô escolhido for o menor ou maior elemento.
+- **Entrada conhecida**: Shuffle ou mediana de 3 ajuda a evitar o pior caso.
+
+#### **6. 3-way Quick Sort**
+- **Aleatória**: O(n log n), similar ao Quick Sort.
+- **Crescente/Decrescente**: Melhor que o Quick Sort em entradas com muitos elementos repetidos.
+- **Entrada conhecida**: Excelente para entradas com muitos valores iguais.
+
+#### **7. Heap Sort**
+- **Aleatória**: Sempre O(n log n), pois constrói e ajusta a heap de forma consistente.
+- **Crescente/Decrescente**: Não aproveita ordenação prévia.
+- **Entrada conhecida**: Não há otimizações específicas.
+
+#### **8. Radix Sort (LSD)**
+- **Aleatória**: Sempre O(n*k), onde `k` é o número de dígitos.
+- **Crescente/Decrescente**: Não depende da ordem inicial.
+- **Entrada conhecida**: Muito eficiente para números inteiros ou strings de tamanho fixo.
+
+---
+
+### **Resumo**
+- **Insertion Sort** é ideal para entradas quase ordenadas.
+- **Quick Sort** é rápido para entradas aleatórias, mas precisa de melhorias (shuffle ou mediana de 3) para evitar o pior caso.
+- **3-way Quick Sort** é excelente para entradas com muitos elementos repetidos.
+- **Merge Sort** e **Heap Sort** têm desempenho consistente, independentemente da entrada.
+- **Radix Sort** é eficiente para números inteiros ou strings, mas requer espaço extra.
+
+
 # Referências
+### Ferramentas de Visualização
+- [Visualgo](https://visualgo.net/en/sorting): Ferramenta interativa para visualizar algoritmos de ordenação.
+- [Algorithm Visualizer](https://algorithm-visualizer.org/): Plataforma para simular algoritmos.
+- [Sorting Algorithm Animations](https://www.toptal.com/developers/sorting-algorithms): Animações de diferentes algoritmos de ordenação.
+
 ### [Visualizador](https://csvistool.com/)
 
 ### [Slides](../slides/)
@@ -195,3 +409,5 @@ Radix (LSD)     |          | X        | n*k     | n*k    | n*k    | O(n+k)
 ### [Algorithms, 4th Edition, 2nd captcher](https://algs4.cs.princeton.edu/home/)
 
 ### [Playlist do Sedgewick](https://www.youtube.com/playlist?list=PLRdD1c6QbAqJn0606RlOR6T3yUqFWKwmX)
+
+### [Playlist dos robos](https://youtube.com/playlist?list=PL2aHrV9pFqNS79ZKnGLw-RG5gH01bcjRZ&si=mb6EwmCQDdCoHSgw)
